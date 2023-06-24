@@ -3,6 +3,8 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { AccountContext } from "../Context/AccoutInfo";
+import axios from "axios";
+
 
 
 const Qr = require("../Images/qr.png");
@@ -14,6 +16,18 @@ export default function Auth() {
     const info = jwt_decode(res.credential);
     console.log(info);
     setaccount(info);
+
+    await axios({
+        method: "POST",
+        url: "http://localhost:3001/googleauth/auth",
+        data: info,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }).then((res) => {
+        console.log(res);
+        
+      });
   };
 
   const onLoginError = async (res) => {

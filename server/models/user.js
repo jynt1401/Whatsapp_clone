@@ -2,6 +2,10 @@ const mongoose =require('mongoose');
 require('mongoose-type-email');
 
 const userSchema=new mongoose.Schema({
+    name:{
+        type:String,
+        require:true
+    },
     first_name:{
         type:String,
         require:true
@@ -14,10 +18,7 @@ const userSchema=new mongoose.Schema({
         type:String,
         require:true
     },
-    password:{
-        type:String,
-        require:false
-    },
+    
     profile:{
         type:String,
         require:false

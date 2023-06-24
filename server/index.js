@@ -5,8 +5,11 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const { header } = require("express-validator");
 const auth = require('./Routes/auth');
+const user = require('./Routes/user');
 
 const app = express();
+
+app.use(cors());
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -47,4 +50,5 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use("/googleauth", auth);
+app.use("/users", user);
 
