@@ -11,6 +11,21 @@ import UserChat from "./Left/UserChat";
 
 export default function Left() {
   const [allcon, setallcon] = useState([]);
+  const [user, setuser] = useState("");
+  console.log(user);
+  console.log(allcon);
+
+  const getFilteredItem = (query, item) => {
+    if (!query) {
+      return item;
+    }
+
+    return item.filter((val) => {
+      return val.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+    });
+  };
+  const filtered = getFilteredItem(user, allcon);
+  console.log(filtered);
 
   useEffect(() => {
     getalluser();
@@ -58,6 +73,9 @@ export default function Left() {
         <input
           className="w-[400px] h-[35px] ml-2 mr-2 focus:outline-none text-white rounded-xl bg-[#222e35] border-none p-5 placeholder:translate-x-4 "
           placeholder="search or start new chat"
+          onChange={(e) => {
+            setuser(e.target.value);
+          }}
         ></input>
       </div>
       <div className="w-[400px] h-[35px] flex ml-2  mr-2 border-b-2 border-[#272e36] text-white  mt-[15px] p-5 ">
@@ -69,7 +87,7 @@ export default function Left() {
         <div className="font-bold ml-6 mt-[-13px]">Archived</div>
       </div>
       <div className="h-[350px] text-white mt-5 ">
-        {allcon.map((userdata) => (
+        {filtered.map((userdata) => (
           <div className="">
             <UserChat userdata={userdata} />
           </div>

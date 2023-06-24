@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AccountContext } from "../../../Context/AccoutInfo";
 import { BsEmojiSmile } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
@@ -8,11 +8,13 @@ import bg from "../../../Images/bgchat.png";
 import { SelectuserContext } from "../../../Context/Selectuser";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 
-
 export default function Chatarea() {
   const { account } = useContext(AccountContext);
   const { userinfo, setuserinfo } = useContext(SelectuserContext);
   console.log(userinfo);
+
+  const [text,settext]=useState("");
+  console.log(text);
   return (
     <div>
       <div className="bg-[#222e35] h-[65px] flex">
@@ -42,18 +44,25 @@ export default function Chatarea() {
         <div>userinfo</div>
       </div>
 
-      <div className="bg-[#222e35] flex h-[65px] w-[100%] " style={{ color: "#abaeb0" }}>
-        <div className="w-[5%]  ml-3"> <BsEmojiSmile size={25} className="ml-3 mt-4" /></div>
-        <div className="w-[5%] ml-1 "><GoPaperclip size={25} className=" mt-4" /></div>
-        <div className="w-[70%]  ">
-        <div className=" mt-[10px] flex">
-        <input
-          className="w-[900px] h-[35px] ml-2 mr-2 focus:outline-none text-white rounded-xl bg-[#344651] border-none p-5 placeholder:translate-x-2 "
-          placeholder="Type a message"
-        ></input>
-      </div>
+      <div className="bg-[#222e35] flex h-[65px] " style={{ color: "#abaeb0" }}>
+        <div className="w-[5%]  ml-3">
+          {" "}
+          <BsEmojiSmile size={25} className="ml-3 mt-4" />
         </div>
-        <div className="w-[5%]  mx-3"><BsFillMicFill size={25} className="ml-3 mt-4" /></div>
+        <div className="w-[5%] ml-3 ">
+          <GoPaperclip size={25} className=" mt-4" />
+        </div>
+        <div className="  ">
+          <div className=" mt-[10px] flex">
+            <input
+              className="w-[900px] h-[35px] ml-2 mr-1 focus:outline-none text-white rounded-xl bg-[#344651] border-none p-5 placeholder:translate-x-2 "
+              placeholder="Type a message" onChange={(e)=>{settext(e.target.value)}}
+            ></input>
+          </div>
+        </div>
+        <div className="w-[5%]  mx-3">
+          <BsFillMicFill size={25} className="ml-3 mt-4" />
+        </div>
       </div>
     </div>
   );
