@@ -22,7 +22,7 @@ export default function Auth() {
 
   return (
     <div className="h-screen w-[100%] min-w-[1150px] bg-[#0b131a] absolute">
-      <div className="h-[120px] bg-[#1c2831]"></div>
+      <div className="h-[120px] bg-[#222e35]"></div>
       <div className="h-[70%] w-[70%] mx-auto bg-white shadow-lg relative top-[-50px]">
         <div className="flex">
           <div className="  w-[40%] mx-auto">
