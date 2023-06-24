@@ -19,9 +19,11 @@ export default function Left() {
     if (!query) {
       return item;
     }
-
+    // .replace(/\s/g, '')
     return item.filter((val) => {
-      return val.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+      let str = val.name.toLowerCase().split(" ").join("");
+      let q = query.split(" ").join("");
+      return str.toLowerCase().indexOf(q.toLowerCase()) > -1;
     });
   };
   const filtered = getFilteredItem(user, allcon);
