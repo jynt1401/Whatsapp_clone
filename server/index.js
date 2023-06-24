@@ -1,8 +1,10 @@
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { header } = require("express-validator");
+const auth = require('./Routes/auth');
 
 const app = express();
 
@@ -40,19 +42,9 @@ app.use((req, res, next) => {
     "Origin,X-Requested-With,Content-Type,Accept",
     "Access-Control-Allow-Methods: GET, DELETE, HEAD, OPTIONS, POST"
   );
-  // header("Access-Control-Allow-Methods:POST,GET,OPTION,PUT,DELETE")
-  // header("Access-Control-Allow-Headers:Content-Type,X-Auth-Token,Origin,Authorization")
   next();
 });
 
 app.use(express.json());
-// app.use("/dashboard", dashboardRouter);
-// app.use("/dashboard", require("./Routes/Userdetails"));
-// app.use("/dashboard", require("./Routes/ProfileUpdate"));
+app.use("/googleauth", auth);
 
-// app.use("/register", require("./Routes/CreatUser"));
-// app.use("/register", require("./Routes/Signup"));
-
-// app.use("/transactions", require("./Routes/Transactions"));
-// app.use("/transactions", require("./Routes/Transactions"));
-// app.use("/wallet", require("./Routes/Wallet"));
