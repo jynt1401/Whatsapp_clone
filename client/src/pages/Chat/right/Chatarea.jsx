@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
 import { AccountContext } from "../../../Context/AccoutInfo";
-import { PiDotsThreeVerticalBold } from "react-icons/pi";
+import { BsEmojiSmile } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
+import { GoPaperclip } from "react-icons/go";
+import { BsFillMicFill } from "react-icons/bs";
 import bg from "../../../Images/bgchat.png";
 import { SelectuserContext } from "../../../Context/Selectuser";
+import { PiDotsThreeVerticalBold } from "react-icons/pi";
+
 
 export default function Chatarea() {
-  
   const { account } = useContext(AccountContext);
   const { userinfo, setuserinfo } = useContext(SelectuserContext);
   console.log(userinfo);
@@ -31,13 +34,27 @@ export default function Chatarea() {
           <BiSearch size={25} className="" />
         </div>
       </div>
+
       <div
-        className="bg-white h-[580px]"
-        style={{ backgroundImage: `url(${bg})` }}
+        className="bg-white h-[580px] overflow-y-scroll "
+        style={{ backgroundImage: `url(${bg})`, backgroundSize: "30%" }}
       >
-        cfgcfjckhvkjvkjvvbhjkml
+        <div>userinfo</div>
       </div>
-      <div className="bg-[#222e35] "></div>
+
+      <div className="bg-[#222e35] flex h-[65px] w-[100%] " style={{ color: "#abaeb0" }}>
+        <div className="w-[5%]  ml-3"> <BsEmojiSmile size={25} className="ml-3 mt-4" /></div>
+        <div className="w-[5%] ml-1 "><GoPaperclip size={25} className=" mt-4" /></div>
+        <div className="w-[70%]  ">
+        <div className=" mt-[10px] flex">
+        <input
+          className="w-[900px] h-[35px] ml-2 mr-2 focus:outline-none text-white rounded-xl bg-[#344651] border-none p-5 placeholder:translate-x-2 "
+          placeholder="Type a message"
+        ></input>
+      </div>
+        </div>
+        <div className="w-[5%]  mx-3"><BsFillMicFill size={25} className="ml-3 mt-4" /></div>
+      </div>
     </div>
   );
 }

@@ -54,25 +54,26 @@ export default function Left() {
         </div>
       </div>
 
-
       <div className=" mt-[10px] flex">
         <input
           className="w-[400px] h-[35px] ml-2 mr-2 focus:outline-none text-white rounded-xl bg-[#222e35] border-none p-5 placeholder:translate-x-4 "
           placeholder="search or start new chat"
         ></input>
       </div>
-      <div className="w-[400px] h-[35px] flex ml-2  mr-2 border-b-2 border-[#272e36] text-white  mt-[15px] p-5 "
-         >
-            <BiArchiveIn size={23}  style={{ color: "#00a884" }} className="ml-[-10px] mt-[-13px]" />
-            <div className="font-bold ml-6 mt-[-13px]">Archived</div>
-
-        
+      <div className="w-[400px] h-[35px] flex ml-2  mr-2 border-b-2 border-[#272e36] text-white  mt-[15px] p-5 ">
+        <BiArchiveIn
+          size={23}
+          style={{ color: "#00a884" }}
+          className="ml-[-10px] mt-[-13px]"
+        />
+        <div className="font-bold ml-6 mt-[-13px]">Archived</div>
       </div>
-      <div className="h-[350px] text-white mt-5 " >
-       
+      <div className="h-[350px] text-white mt-5 ">
         {allcon.map((userdata) => (
-        <div className=""><UserChat userdata={userdata}/></div>
-      ))}
+          <div className="">
+            <UserChat userdata={userdata} />
+          </div>
+        ))}
       </div>
     </div>
   );
