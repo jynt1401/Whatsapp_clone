@@ -10,6 +10,10 @@ import Logout from "./Left/Logout";
 import UserChat from "./Left/UserChat";
 
 export default function Left() {
+
+  const {call}=useContext(AccountContext);
+  console.log(call);
+
   const [allcon, setallcon] = useState([]);
   const [user, setuser] = useState("");
   console.log(user);

@@ -1,14 +1,18 @@
 import React, { useContext } from "react";
 import { SelectuserContext } from "../../../Context/Selectuser";
+import { AccountContext } from "../../../Context/AccoutInfo";
 
 export default function UserChat({ userdata }) {
   // console.log(userdata);
   const setuserforchat = () => {
     setuserinfo(userdata);
+    setcall({sender: account.email, reciver: userdata.email });
     // console.log(userdata.email);
   };
 
-  const {userinfo, setuserinfo}=useContext(SelectuserContext);
+  const { userinfo, setuserinfo } = useContext(SelectuserContext);
+  const { call, setcall } = useContext(AccountContext);
+  const { account } = useContext(AccountContext);
   // console.log(userinfo);
 
   return (

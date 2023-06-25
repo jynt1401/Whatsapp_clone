@@ -1,13 +1,20 @@
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { header } = require("express-validator");
-const auth = require('./Routes/auth');
-const user = require('./Routes/user');
-
+const auth = require("./Routes/auth");
+const user = require("./Routes/user");
 const app = express();
+
+const http = require("http");
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
+});
 
 app.use(cors());
 
@@ -20,6 +27,30 @@ app.use(
   })
 );
 
+//------------socket-----------//
+
+io.on("connection", (socket) => {
+  socket.emit("me", socket.id);
+
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("callEnded");
+  });
+
+  socket.on("callUser", (data) => {
+    io.to(data.userToCall).emit("callUser", {
+      signal: data.signalData,
+      from: data.from,
+      name: data.name,
+    });
+  });
+
+  socket.on("answerCall", (data) => {
+    io.to(data.to).emit("callAccepted", data.signal);
+  });
+});
+
+//------------socket-----------//
+
 //---------------mongoose connection----------------//
 
 const Connection_url =
@@ -28,7 +59,7 @@ const PORT = 3001;
 
 mongoose
   .connect(Connection_url, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(PORT, () => console.log(`runnging ${PORT}`)))
+  .then(() => server.listen(PORT, () => console.log(`runnging ${PORT}`)))
   .catch((error) => console.log(error.message));
 
 mongoose.set("strictQuery", true);
@@ -51,4 +82,3 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use("/googleauth", auth);
 app.use("/users", user);
-
