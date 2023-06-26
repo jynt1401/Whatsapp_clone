@@ -18,21 +18,23 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "../../../App.css";
 
+
 import Peer from "simple-peer";
 import io from "socket.io-client";
+import axios from "axios";
 const socket = io.connect("http://localhost:3001");
 export default function Chatarea() {
-  
   const navigate = useNavigate();
 
-  const {opencall,setopencall}=useContext(SelectuserContext);
+  const { opencall, setopencall } = useContext(SelectuserContext);
 
-  if(opencall){
+  if (opencall) {
     navigate("/call");
   }
 
   const { account, call } = useContext(AccountContext);
-  const { userinfo, setuserinfo } = useContext(SelectuserContext);
+  const { userinfo, setuserinfo, setconvoID, convoID } =
+    useContext(SelectuserContext);
   console.log(userinfo);
   console.log(account);
 
@@ -43,12 +45,30 @@ export default function Chatarea() {
 
   const [text, settext] = useState("");
   console.log(text);
-  const sendText=(e)=>{
-    if(e.keyCode === 13){
-    console.log('You must have pressed Enter ')
-    }
-  }
+  const sendText = async(e) => {
+    if (e.keyCode === 13) {
+      console.log("You must have pressed Enter ");
+      let msg = {
+        senderId: account.email,
+        reciverId: userinfo.email,
+        convoID:convoID,
+        text:text
+      };
+      console.log(msg);
 
+      await axios({
+        method: "POST",
+        url: "http://localhost:3001/convo/startconvo",
+        data:msg,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }).then((res) => {
+        console.log(res.data);
+        
+      });
+    }
+  };
 
   return (
     <div>
@@ -77,32 +97,12 @@ export default function Chatarea() {
         </div>
       </div>
 
-
-
-
-
-
-
       <div
         className="bg-white h-[580px] overflow-y-scroll font-bold text-white"
         style={{ backgroundImage: `url(${bg})`, backgroundSize: "30%" }}
       >
         <div>userinfo</div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       <div className="bg-[#222e35] flex h-[65px] " style={{ color: "#abaeb0" }}>
         <div className="w-[5%]  ml-3">

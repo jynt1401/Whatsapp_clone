@@ -5,6 +5,7 @@ const cors = require("cors");
 const { header } = require("express-validator");
 const auth = require("./Routes/auth");
 const user = require("./Routes/user");
+const convo = require("./Routes/Convo");
 const app = express();
 
 const http = require("http");
@@ -82,3 +83,4 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use("/googleauth", auth);
 app.use("/users", user);
+app.use("/convo", convo);

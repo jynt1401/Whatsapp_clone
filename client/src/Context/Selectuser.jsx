@@ -5,6 +5,7 @@ export const SelectuserContext = createContext("");
 const Userinfoforchat = ({ children }) => {
   const [userinfo, setuserinfo] = useState();
   const [opencall, setopencall] = useState(false);
+  const [convoID, setconvoID] = useState("");
   return (
     <SelectuserContext.Provider
       value={{
@@ -12,6 +13,8 @@ const Userinfoforchat = ({ children }) => {
         setuserinfo,
         opencall,
         setopencall,
+        convoID,
+        setconvoID,
       }}
     >
       {children}

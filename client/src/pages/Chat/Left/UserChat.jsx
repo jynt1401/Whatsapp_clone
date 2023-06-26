@@ -1,16 +1,32 @@
 import React, { useContext } from "react";
 import { SelectuserContext } from "../../../Context/Selectuser";
 import { AccountContext } from "../../../Context/AccoutInfo";
+import axios from "axios";
 
 export default function UserChat({ userdata }) {
   // console.log(userdata);
-  const setuserforchat = () => {
+  const setuserforchat = async () => {
     setuserinfo(userdata);
-    setcall({sender: account.email, reciver: userdata.email });
-    // console.log(userdata.email);
+    setcall({ sender: account.email, reciver: userdata.email });
+
+    await axios({
+      method: "POST",
+      url: "http://localhost:3001/convo/setconvo",
+      data: {
+        senderId: account.email,
+        reciverId: userdata.email,
+      },
+      headers: {
+        "Content-type": "application/json",
+      },
+    }).then((res) => {
+      console.log("************");
+      console.log(res.data.convoexist[0]._id);
+      setconvoID(res.data.convoexist[0]._id)
+    });
   };
 
-  const { userinfo, setuserinfo } = useContext(SelectuserContext);
+  const { userinfo, setuserinfo,setconvoID,convoID } = useContext(SelectuserContext);
   const { call, setcall } = useContext(AccountContext);
   const { account } = useContext(AccountContext);
   // console.log(userinfo);
