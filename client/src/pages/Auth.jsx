@@ -56,7 +56,7 @@ export default function Auth() {
           </div>
           <div className=" w-[40%] mx-auto mt-12">
             <div className="absolute">
-              <div className=" relative top-[160px] ml-14 ">
+              <div className=" relative top-[160px] ml-14  ">
                 <GoogleLogin
                   onSuccess={onLoginSuccess}
                   onError={onLoginError}

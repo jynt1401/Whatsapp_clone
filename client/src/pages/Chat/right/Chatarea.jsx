@@ -10,20 +10,46 @@ import { SelectuserContext } from "../../../Context/Selectuser";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import Callinfo, { CallContext } from "../../../Context/CallContext";
 import { useNavigate } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import TextField from "@material-ui/core/TextField";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import PhoneIcon from "@material-ui/icons/Phone";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import "../../../App.css";
 
+import Peer from "simple-peer";
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:3001");
 export default function Chatarea() {
+  
   const navigate = useNavigate();
+
+  const {opencall,setopencall}=useContext(SelectuserContext);
+
+  if(opencall){
+    navigate("/call");
+  }
+
   const { account, call } = useContext(AccountContext);
   const { userinfo, setuserinfo } = useContext(SelectuserContext);
   console.log(userinfo);
+  console.log(account);
 
   const videocall = () => {
     console.log(call);
-    navigate("/call");
+    setopencall(true);
   };
 
   const [text, settext] = useState("");
   console.log(text);
+  const sendText=(e)=>{
+    if(e.keyCode === 13){
+    console.log('You must have pressed Enter ')
+    }
+  }
+
+
   return (
     <div>
       <div className="bg-[#222e35] h-[65px] flex">
@@ -51,12 +77,32 @@ export default function Chatarea() {
         </div>
       </div>
 
+
+
+
+
+
+
       <div
         className="bg-white h-[580px] overflow-y-scroll font-bold text-white"
         style={{ backgroundImage: `url(${bg})`, backgroundSize: "30%" }}
       >
         <div>userinfo</div>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <div className="bg-[#222e35] flex h-[65px] " style={{ color: "#abaeb0" }}>
         <div className="w-[5%]  ml-3">
@@ -71,6 +117,7 @@ export default function Chatarea() {
             <input
               className="w-[900px] h-[35px] ml-2 mr-1 focus:outline-none text-white rounded-xl bg-[#344651] border-none p-5 placeholder:translate-x-2 "
               placeholder="Type a message"
+              onKeyDown={sendText}
               onChange={(e) => {
                 settext(e.target.value);
               }}
