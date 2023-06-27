@@ -19,14 +19,16 @@ export default function UserChat({ userdata }) {
       headers: {
         "Content-type": "application/json",
       },
-    }).then((res) => {
+    }).then(async (res) => {
       console.log("************");
       console.log(res.data.convoexist[0]._id);
-      setconvoID(res.data.convoexist[0]._id)
+      setconvoID(res.data.convoexist[0]._id);
+      
     });
   };
 
-  const { userinfo, setuserinfo,setconvoID,convoID } = useContext(SelectuserContext);
+  const { userinfo, setuserinfo, setconvoID, convoID ,setchats} =
+    useContext(SelectuserContext);
   const { call, setcall } = useContext(AccountContext);
   const { account } = useContext(AccountContext);
   // console.log(userinfo);

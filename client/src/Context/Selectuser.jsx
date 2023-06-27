@@ -6,6 +6,7 @@ const Userinfoforchat = ({ children }) => {
   const [userinfo, setuserinfo] = useState();
   const [opencall, setopencall] = useState(false);
   const [convoID, setconvoID] = useState("");
+  const [chats, setchats] = useState([]);
   return (
     <SelectuserContext.Provider
       value={{
@@ -15,6 +16,8 @@ const Userinfoforchat = ({ children }) => {
         setopencall,
         convoID,
         setconvoID,
+        setchats,
+        chats
       }}
     >
       {children}

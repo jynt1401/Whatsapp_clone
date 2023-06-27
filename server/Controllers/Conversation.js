@@ -14,8 +14,8 @@ const Conversation = async (req, res) => {
   const convoexist = await ConversationTable.find({
     members: { $all: [sId, rId] },
   });
-  console.log("convoexist");
-  console.log(convoexist);
+  // console.log("convoexist");
+  // console.log(convoexist);
   if (convoexist.length === 0) {
     await ConversationTable.create({
       members: [sId, rId],
@@ -27,25 +27,36 @@ const Conversation = async (req, res) => {
     res.json({ convoexist });
     return;
   }
-  console.log("Conversation exists");
+  // console.log("Conversation exists");
   res.json({ convoexist });
   return;
 };
 
-
-
 const StartConversation = async (req, res) => {
-  console.log(req.body)
- 
-  await ConversationTable.findOneAndUpdate({_id:req.body.convoID},{msg:req.body.text});
+  // console.log(req.body);
+
+  await ConversationTable.findOneAndUpdate(
+    { _id: req.body.convoID },
+    { msg: req.body.text }
+  );
   await MessageTable.create({
     convoId: req.body.convoID,
-    rId:req.body.reciverId,
-    sId:req.body.senderId,
-    text:req.body.text
-  }).then(console.log("message saved"));
+    rId: req.body.reciverId,
+    sId: req.body.senderId,
+    text: req.body.text,
+  }).then();
   res.json("msg saved ******************************");
-
 };
 
-module.exports = { StartConversation,Conversation };
+const Chats = async (req, res) => {
+  
+  // console.log(req.body);
+
+  const msg=await MessageTable.find({
+    convoId: req.body.id,
+
+  }).then();
+  res.json(msg);
+};
+
+module.exports = { StartConversation, Conversation, Chats };

@@ -18,15 +18,23 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "../../../App.css";
 
-
 import Peer from "simple-peer";
 import io from "socket.io-client";
 import axios from "axios";
+import Send from "../messageUi/Send";
+import Reciver from "../messageUi/Reciver";
 const socket = io.connect("http://localhost:3001");
 export default function Chatarea() {
   const navigate = useNavigate();
+  const [Newm,setNewm]=useState(true);
+  const messagesEndRef = useRef(null)
 
-  const { opencall, setopencall } = useContext(SelectuserContext);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  const { opencall, setopencall, setchats, chats } =
+    useContext(SelectuserContext);
 
   if (opencall) {
     navigate("/call");
@@ -35,8 +43,8 @@ export default function Chatarea() {
   const { account, call } = useContext(AccountContext);
   const { userinfo, setuserinfo, setconvoID, convoID } =
     useContext(SelectuserContext);
-  console.log(userinfo);
-  console.log(account);
+  // console.log(userinfo);
+  // console.log(account);
 
   const videocall = () => {
     console.log(call);
@@ -44,31 +52,63 @@ export default function Chatarea() {
   };
 
   const [text, settext] = useState("");
-  console.log(text);
-  const sendText = async(e) => {
-    if (e.keyCode === 13) {
+  // console.log(text);
+  const sendText = async (e) => {
+    if (e.keyCode === 13 && text.length !== 0) {
       console.log("You must have pressed Enter ");
       let msg = {
         senderId: account.email,
         reciverId: userinfo.email,
-        convoID:convoID,
-        text:text
+        convoID: convoID,
+        text: text,
       };
       console.log(msg);
-
       await axios({
         method: "POST",
         url: "http://localhost:3001/convo/startconvo",
-        data:msg,
+        data: msg,
+
         headers: {
           "Content-type": "application/json",
         },
-      }).then((res) => {
-        console.log(res.data);
-        
+      }).then(async(res) => {
+        // console.log(res.data);
+       
       });
+      settext("");
+      e.preventDefault();
+      // console.log(Newm)
+      setNewm(prev => !prev)
     }
   };
+
+  const getdata=async()=>{
+    await axios({
+      method: "POST",
+      url: "http://localhost:3001/convo/chats",
+      data: {
+        id: convoID,
+      },
+      headers: {
+        "Content-type": "application/json",
+      },
+    }).then((res) => {
+      // console.log("********77777777777777777");
+      // console.log(res.data);
+      setchats(res.data);
+    });
+  }
+  useEffect(()=>{
+    getdata();
+    scrollToBottom();
+  },[chats,Newm])
+
+  
+  
+  
+  
+
+  // console.log(chats);
 
   return (
     <div>
@@ -98,10 +138,29 @@ export default function Chatarea() {
       </div>
 
       <div
-        className="bg-white h-[580px] overflow-y-scroll font-bold text-white"
+        className="bg-white h-[580px] overflow-y-scroll  text-white"
         style={{ backgroundImage: `url(${bg})`, backgroundSize: "30%" }}
       >
-        <div>userinfo</div>
+        {chats ? (
+          <div className="">
+            {chats.map((data) => (
+              <div>
+                 <div ref={messagesEndRef} />
+                {data.sId === account.email ? (
+                  <div className="flex flex-row-reverse">
+                    <Send data={data} />
+                  </div>
+                ) : (
+                  <div className="flex ">
+                    <Reciver data={data} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="font-bold text-white">fcvghbjn</div>
+        )}
       </div>
 
       <div className="bg-[#222e35] flex h-[65px] " style={{ color: "#abaeb0" }}>
@@ -118,6 +177,7 @@ export default function Chatarea() {
               className="w-[900px] h-[35px] ml-2 mr-1 focus:outline-none text-white rounded-xl bg-[#344651] border-none p-5 placeholder:translate-x-2 "
               placeholder="Type a message"
               onKeyDown={sendText}
+              value={text}
               onChange={(e) => {
                 settext(e.target.value);
               }}
