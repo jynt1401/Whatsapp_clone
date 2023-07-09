@@ -1,9 +1,10 @@
 import { createContext, useState } from "react";
 
-export const AccountContext = createContext(null);
+export const AccountContext = createContext(" ");
 
 const AccountInfo = ({ children }) => {
   const [account, setaccount] = useState();
+  const [status, setstatus] = useState(false);
   const [call, setcall] = useState({});
  
   return (
@@ -13,6 +14,8 @@ const AccountInfo = ({ children }) => {
         setaccount,
         call,
         setcall,
+        status,
+        setstatus,
       }}
     >
       {children}

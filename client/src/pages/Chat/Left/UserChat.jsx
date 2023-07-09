@@ -21,17 +21,17 @@ export default function UserChat({ userdata }) {
       },
     }).then(async (res) => {
       console.log("************");
-      console.log(res.data.convoexist[0]._id);
+      console.log(res.data);
       setconvoID(res.data.convoexist[0]._id);
+      setlastmsg(res.data.convoexist[0].msg);
       
     });
   };
 
-  const { userinfo, setuserinfo, setconvoID, convoID ,setchats} =
+  const { userinfo, setuserinfo, setconvoID,setlastmsg,lastmsg, convoID ,setchats} =
     useContext(SelectuserContext);
   const { call, setcall } = useContext(AccountContext);
   const { account } = useContext(AccountContext);
-  // console.log(userinfo);
 
   return (
     <div
@@ -43,7 +43,8 @@ export default function UserChat({ userdata }) {
         style={{ backgroundImage: `url(${userdata.profile})` }}
       ></div>
       <div className="border-b-2 border-[#272e36] w-[90%]">
-        <div className="ml-3 mt-1">{userdata.name}</div>
+        <div className="ml-3 mt-1 font-semibold">{userdata.name}</div>
+        <div className="ml-3 text-[#878787] text-[12px]">click to chat with {userdata.name}</div>
       </div>
     </div>
   );

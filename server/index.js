@@ -6,7 +6,9 @@ const { header } = require("express-validator");
 const auth = require("./Routes/auth");
 const user = require("./Routes/user");
 const convo = require("./Routes/Convo");
+const Status = require("./Routes/Status");
 const app = express();
+const fileUpload = require("express-fileupload");
 
 const http = require("http");
 const server = http.createServer(app);
@@ -80,7 +82,14 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
+
 app.use(express.json());
 app.use("/googleauth", auth);
 app.use("/users", user);
 app.use("/convo", convo);
+app.use("/status", Status);
