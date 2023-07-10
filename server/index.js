@@ -14,7 +14,8 @@ const http = require("http");
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://whatsapp-clone-m87l9k18w-jynt1401.vercel.app",
+    // origin: "http://whatsapp-clone-m87l9k18w-jynt1401.vercel.app",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
@@ -25,7 +26,8 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(
   cors({
-    origin: "http://whatsapp-clone-m87l9k18w-jynt1401.vercel.app",
+    // origin: "http://whatsapp-clone-m87l9k18w-jynt1401.vercel.app",
+    origin: "*",
     credentials: true,
   })
 );
