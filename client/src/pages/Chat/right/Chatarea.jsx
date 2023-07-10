@@ -23,15 +23,15 @@ import io from "socket.io-client";
 import axios from "axios";
 import Send from "../messageUi/Send";
 import Reciver from "../messageUi/Reciver";
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://whatsapp-clone-82zf.onrender.com");
 export default function Chatarea() {
   const navigate = useNavigate();
-  const [Newm,setNewm]=useState(true);
-  const messagesEndRef = useRef(null)
+  const [Newm, setNewm] = useState(true);
+  const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const { opencall, setopencall, setchats, chats } =
     useContext(SelectuserContext);
@@ -65,27 +65,26 @@ export default function Chatarea() {
       console.log(msg);
       await axios({
         method: "POST",
-        url: "http://localhost:3001/convo/startconvo",
+        url: "https://whatsapp-clone-82zf.onrender.com/convo/startconvo",
         data: msg,
 
         headers: {
           "Content-type": "application/json",
         },
-      }).then(async(res) => {
+      }).then(async (res) => {
         // console.log(res.data);
-       
       });
       settext("");
       e.preventDefault();
       // console.log(Newm)
-      setNewm(prev => !prev)
+      setNewm((prev) => !prev);
     }
   };
 
-  const getdata=async()=>{
+  const getdata = async () => {
     await axios({
       method: "POST",
-      url: "http://localhost:3001/convo/chats",
+      url: "https://whatsapp-clone-82zf.onrender.com/convo/chats",
       data: {
         id: convoID,
       },
@@ -97,16 +96,11 @@ export default function Chatarea() {
       // console.log(res.data);
       setchats(res.data);
     });
-  }
-  useEffect(()=>{
+  };
+  useEffect(() => {
     getdata();
     scrollToBottom();
-  },[chats,Newm])
-
-  
-  
-  
-  
+  }, [chats, Newm]);
 
   // console.log(chats);
 
@@ -145,7 +139,7 @@ export default function Chatarea() {
           <div className="">
             {chats.map((data) => (
               <div>
-                 <div ref={messagesEndRef} />
+                <div ref={messagesEndRef} />
                 {data.sId === account.email ? (
                   <div className="flex flex-row-reverse">
                     <Send data={data} />

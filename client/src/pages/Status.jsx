@@ -6,7 +6,7 @@ import { AccountContext } from "../Context/AccoutInfo";
 import StatusCard from "./StatusCard";
 
 export default function Status() {
-  const { status,account } = useContext(AccountContext);
+  const { status, account } = useContext(AccountContext);
 
   const [uploadstatus, setuploadstatus] = useState(false);
   const [datastatus, setdatastatus] = useState([]);
@@ -20,7 +20,7 @@ export default function Status() {
   const f = async () => {
     await axios({
       method: "POST",
-      url: "http://localhost:3001/status/get",
+      url: "https://whatsapp-clone-82zf.onrender.com/status/get",
 
       headers: {
         "Content-type": "application/json",

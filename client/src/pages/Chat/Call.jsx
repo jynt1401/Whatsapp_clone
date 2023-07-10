@@ -11,7 +11,7 @@ import "../../../src/App.css";
 import Peer from "simple-peer";
 import io from "socket.io-client";
 import { AccountContext } from "../../Context/AccoutInfo";
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("https://whatsapp-clone-82zf.onrender.com");
 
 function Call() {
   const [me, setMe] = useState("");

@@ -5,13 +5,10 @@ import jwt_decode from "jwt-decode";
 import { AccountContext } from "../Context/AccoutInfo";
 import axios from "axios";
 
-
-
 const Qr = require("../Images/qr.png");
 
 export default function Auth() {
-  const {setaccount,status,
-    setstatus} = useContext(AccountContext);
+  const { setaccount, status, setstatus } = useContext(AccountContext);
 
   const onLoginSuccess = async (res) => {
     const info = jwt_decode(res.credential);
@@ -19,17 +16,16 @@ export default function Auth() {
     setaccount(info);
 
     await axios({
-        method: "POST",
-        url: "http://localhost:3001/googleauth/auth",
-        data: info,
-        headers: {
-          "Content-type": "application/json",
-        },
-      }).then((res) => {
-        console.log(res);
-        setstatus(false);
-        
-      });
+      method: "POST",
+      url: "https://whatsapp-clone-82zf.onrender.com/googleauth/auth",
+      data: info,
+      headers: {
+        "Content-type": "application/json",
+      },
+    }).then((res) => {
+      console.log(res);
+      setstatus(false);
+    });
   };
 
   const onLoginError = async (res) => {

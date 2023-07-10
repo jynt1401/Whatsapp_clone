@@ -11,7 +11,7 @@ export default function UserChat({ userdata }) {
 
     await axios({
       method: "POST",
-      url: "http://localhost:3001/convo/setconvo",
+      url: "https://whatsapp-clone-82zf.onrender.com/convo/setconvo",
       data: {
         senderId: account.email,
         reciverId: userdata.email,
@@ -24,12 +24,18 @@ export default function UserChat({ userdata }) {
       console.log(res.data);
       setconvoID(res.data.convoexist[0]._id);
       setlastmsg(res.data.convoexist[0].msg);
-      
     });
   };
 
-  const { userinfo, setuserinfo, setconvoID,setlastmsg,lastmsg, convoID ,setchats} =
-    useContext(SelectuserContext);
+  const {
+    userinfo,
+    setuserinfo,
+    setconvoID,
+    setlastmsg,
+    lastmsg,
+    convoID,
+    setchats,
+  } = useContext(SelectuserContext);
   const { call, setcall } = useContext(AccountContext);
   const { account } = useContext(AccountContext);
 
@@ -44,7 +50,9 @@ export default function UserChat({ userdata }) {
       ></div>
       <div className="border-b-2 border-[#272e36] w-[90%]">
         <div className="ml-3 mt-1 font-semibold">{userdata.name}</div>
-        <div className="ml-3 text-[#878787] text-[12px]">click to chat with {userdata.name}</div>
+        <div className="ml-3 text-[#878787] text-[12px]">
+          click to chat with {userdata.name}
+        </div>
       </div>
     </div>
   );

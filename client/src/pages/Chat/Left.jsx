@@ -40,7 +40,7 @@ export default function Left() {
   const getalluser = async () => {
     await axios({
       method: "POST",
-      url: "http://localhost:3001/users/all",
+      url: "https://whatsapp-clone-82zf.onrender.com/users/all",
       data: { name: "hello" },
       headers: {
         "Content-type": "application/json",
@@ -54,7 +54,7 @@ export default function Left() {
 
   const { account, status, setstatus } = useContext(AccountContext);
   const handleclick = () => {
-    setstatus(!status)
+    setstatus(!status);
   };
   return (
     <div className="bg-[#222e35] h-[65px] ">
@@ -65,7 +65,6 @@ export default function Left() {
         ></div>
         <div className="">
           <button
-            
             className="m-2  h-[30px] flex flex-row-reverse"
             style={{ color: "#abaeb0" }}
           >
@@ -85,12 +84,18 @@ export default function Left() {
             setuser(e.target.value);
           }}
         ></input>
-        <button onClick={handleclick} className="w-[90px] h-[40px] mr-2 text-[17px]  text-center focus:outline-none text-[#bdd8e3] rounded-xl bg-[#222e35] border-none "
-          >Status</button>
+        <button
+          onClick={handleclick}
+          className="w-[90px] h-[40px] mr-2 text-[17px]  text-center focus:outline-none text-[#bdd8e3] rounded-xl bg-[#222e35] border-none "
+        >
+          Status
+        </button>
       </div>
 
       {status ? (
-        <div className="ml-5 mt-5"><Status/></div>
+        <div className="ml-5 mt-5">
+          <Status />
+        </div>
       ) : (
         <div>
           <div className="w-[400px] h-[35px] flex ml-2  mr-2 border-b-2 border-[#272e36] text-white  mt-[15px] p-5 ">
