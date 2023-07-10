@@ -10,7 +10,8 @@ import axios from "axios";
 const Qr = require("../Images/qr.png");
 
 export default function Auth() {
-  const {setaccount} = useContext(AccountContext);
+  const {setaccount,status,
+    setstatus} = useContext(AccountContext);
 
   const onLoginSuccess = async (res) => {
     const info = jwt_decode(res.credential);
@@ -26,6 +27,7 @@ export default function Auth() {
         },
       }).then((res) => {
         console.log(res);
+        setstatus(false);
         
       });
   };

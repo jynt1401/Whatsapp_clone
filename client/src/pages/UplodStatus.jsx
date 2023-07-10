@@ -6,7 +6,7 @@ export default function UplodStatus({ open }) {
   const close = () => {
     open(false);
   };
-  const { account } = useContext(AccountContext);
+  const { account, status, setstatus } = useContext(AccountContext);
   // console.log(account);
 
   const uploadstatus = async () => {
@@ -24,34 +24,36 @@ export default function UplodStatus({ open }) {
     const imgdata = await fetch(
       " https://api.cloudinary.com/v1_1/dk7eckxlo/image/upload",
       {
-        // headers: "Access-Control-Allow-Origin: *",
         method: "post",
-
         body: data,
       }
-    );
-    console.log(imgdata.url);
-    if (imgdata.url) {
-      console.log("here is the url");
-      setUrl(imgdata.url);
-      console.log(imgdata.url);
+    )
+      .then((response) => response.json())
+      .then(async (data) => {
+        if (data.url) {
+          console.log("here is the url");
+          setUrl(data.url);
+          console.log(data.url);
 
-      await axios({
-        method: "POST",
-        url: "http://localhost:3001/status/upload",
-        data: {
-          name: account.name,
-          email: account.email,
-          url: imgdata.url,
-        },
-        headers: {
-          "Content-type": "application/json",
-        },
-      }).then((res) => {
-        console.log(res);
-        open(false);
+          await axios({
+            method: "POST",
+            url: "http://localhost:3001/status/upload",
+            data: {
+              name: account.name,
+              email: account.email,
+              url: data.url,
+            },
+            headers: {
+              "Content-type": "application/json",
+            },
+          }).then((res) => {
+            console.log(res);
+            open(false);
+            setstatus(true);
+          });
+        }
+        console.log(data.url);
       });
-    }
   };
 
   return (

@@ -5,8 +5,10 @@ export const AccountContext = createContext(" ");
 const AccountInfo = ({ children }) => {
   const [account, setaccount] = useState();
   const [status, setstatus] = useState(false);
+  const [watch, setwatch] = useState(false);
   const [call, setcall] = useState({});
- 
+  const [watchdata, setwatchdata] = useState({});
+
   return (
     <AccountContext.Provider
       value={{
@@ -16,6 +18,10 @@ const AccountInfo = ({ children }) => {
         setcall,
         status,
         setstatus,
+        setwatch,
+        watch,
+        setwatchdata,
+        watchdata,
       }}
     >
       {children}

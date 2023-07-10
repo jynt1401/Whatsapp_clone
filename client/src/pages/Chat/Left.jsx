@@ -89,7 +89,7 @@ export default function Left() {
           >Status</button>
       </div>
 
-      {!status ? (
+      {status ? (
         <div className="ml-5 mt-5"><Status/></div>
       ) : (
         <div>

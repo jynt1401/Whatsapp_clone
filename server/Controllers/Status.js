@@ -3,7 +3,7 @@ const StatusTable = require("../models/Status");
 const UploadStatus = async (req, res) => {
   console.log(req.body);
   console.log("===============================");
-
+  
   await StatusTable.create({
     name: req.body.name,
 
@@ -15,4 +15,13 @@ const UploadStatus = async (req, res) => {
   res.json("*******************status saved ******************************");
 };
 
-module.exports = { UploadStatus };
+const GetStatus = async (req, res) => {
+  console.log("==============************=================");
+
+  const data = await StatusTable.find({});
+  console.log(data);
+
+  res.json(data);
+};
+
+module.exports = { UploadStatus, GetStatus };
