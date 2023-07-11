@@ -21,7 +21,7 @@ export default function Workspace() {
         <></>
       )}
 
-      <div className=" bg-[#101d25] mx-auto shadow-lg relative ">
+      <div className=" bg-[#101d25] mx-auto shadow-lg relative h-screen">
         <div className="flex justify-between">
           <div className="w-[29%] ">
             <Left />
