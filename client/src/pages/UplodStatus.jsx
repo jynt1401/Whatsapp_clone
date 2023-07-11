@@ -49,7 +49,7 @@ export default function UplodStatus({ open }) {
           }).then((res) => {
             console.log(res);
             open(false);
-            setstatus(true);
+            setstatus(false);
           });
         }
         console.log(data.url);
