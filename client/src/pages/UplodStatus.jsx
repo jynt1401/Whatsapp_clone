@@ -37,7 +37,7 @@ export default function UplodStatus({ open }) {
 
           await axios({
             method: "POST",
-            url: "http://localhost:3001/status/upload",
+            url: "https://whatsapp-clone-v2qu.onrender.com/status/upload",
             data: {
               name: account.name,
               email: account.email,

@@ -23,7 +23,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import Send from "../messageUi/Send";
 import Reciver from "../messageUi/Reciver";
-// const socket = io.connect("http://localhost:3001");
+// const socket = io.connect("https://whatsapp-clone-v2qu.onrender.com");
 export default function Chatarea() {
   const navigate = useNavigate();
   const [Newm, setNewm] = useState(true);
@@ -65,7 +65,7 @@ export default function Chatarea() {
       console.log(msg);
       await axios({
         method: "POST",
-        url: "http://localhost:3001/convo/startconvo",
+        url: "https://whatsapp-clone-v2qu.onrender.com/convo/startconvo",
         data: msg,
 
         headers: {
@@ -84,7 +84,7 @@ export default function Chatarea() {
   const getdata = async () => {
     await axios({
       method: "POST",
-      url: "http://localhost:3001/convo/chats",
+      url: "https://whatsapp-clone-v2qu.onrender.com/convo/chats",
       data: {
         id: convoID,
       },

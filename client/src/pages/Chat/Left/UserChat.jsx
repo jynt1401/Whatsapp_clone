@@ -11,7 +11,7 @@ export default function UserChat({ userdata }) {
 
     await axios({
       method: "POST",
-      url: "http://localhost:3001/convo/setconvo",
+      url: "https://whatsapp-clone-v2qu.onrender.com/convo/setconvo",
       data: {
         senderId: account.email,
         reciverId: userdata.email,

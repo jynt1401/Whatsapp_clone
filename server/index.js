@@ -14,7 +14,7 @@ const http = require("http");
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://whatsapp-clone-delta-six.vercel.app",
     methods: ["GET", "POST"],
   },
 });
@@ -25,7 +25,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://whatsapp-clone-delta-six.vercel.app",
     credentials: true,
   })
 );
@@ -51,9 +51,12 @@ mongoose.set("strictQuery", true);
 //---------------mongoose connection----------------//
 
 //here are routes for backend calls
-//http://localhost:3000/
+//https://whatsapp-clone-delta-six.vercel.app/
 http: app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://whatsapp-clone-delta-six.vercel.app"
+  );
   res.header(
     "Access-Control-Allow-Origin",
     "Origin,X-Requested-With,Content-Type,Accept",
