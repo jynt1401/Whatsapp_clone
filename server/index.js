@@ -14,8 +14,8 @@ const http = require("http");
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    // origin: "http://whatsapp-clone-m87l9k18w-jynt1401.vercel.app",
-    origin: "*",
+    
+    origin: "https://whatsapp-clone-weld.vercel.app/",
     methods: ["GET", "POST"],
   },
 });
@@ -26,33 +26,14 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(
   cors({
-    // origin: "http://whatsapp-clone-m87l9k18w-jynt1401.vercel.app",
-    origin: "*",
+    
+    origin: "https://whatsapp-clone-weld.vercel.app/",
     credentials: true,
   })
 );
 
 //------------socket-----------//
 
-io.on("connection", (socket) => {
-  socket.emit("me", socket.id);
-
-  socket.on("disconnect", () => {
-    socket.broadcast.emit("callEnded");
-  });
-
-  socket.on("callUser", (data) => {
-    io.to(data.userToCall).emit("callUser", {
-      signal: data.signalData,
-      from: data.from,
-      name: data.name,
-    });
-  });
-
-  socket.on("answerCall", (data) => {
-    io.to(data.to).emit("callAccepted", data.signal);
-  });
-});
 
 //------------socket-----------//
 
@@ -77,7 +58,7 @@ mongoose.set("strictQuery", true);
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "http://whatsapp-clone-m87l9k18w-jynt1401.vercel.app"
+    "https://whatsapp-clone-weld.vercel.app/"
   );
   res.header(
     "Access-Control-Allow-Origin",
