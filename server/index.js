@@ -15,7 +15,7 @@ const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
     
-    origin: "https://whatsapp-clone-weld.vercel.app/",
+    origin: "https://whatsapp-clone-weld.vercel.app",
     methods: ["GET", "POST"],
   },
 });
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(
   cors({
     
-    origin: "https://whatsapp-clone-weld.vercel.app/",
+    origin: "https://whatsapp-clone-weld.vercel.app",
     credentials: true,
   })
 );
@@ -58,7 +58,7 @@ mongoose.set("strictQuery", true);
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://whatsapp-clone-weld.vercel.app/"
+    "https://whatsapp-clone-weld.vercel.app"
   );
   res.header(
     "Access-Control-Allow-Origin",
