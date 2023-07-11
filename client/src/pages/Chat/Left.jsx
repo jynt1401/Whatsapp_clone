@@ -40,7 +40,7 @@ export default function Left() {
   const getalluser = async () => {
     await axios({
       method: "POST",
-      url: "https://whatsapp-clone-82zf.onrender.com/users/all",
+      url: "http://localhost:3001/users/all",
       data: { name: "hello" },
       headers: {
         "Content-type": "application/json",

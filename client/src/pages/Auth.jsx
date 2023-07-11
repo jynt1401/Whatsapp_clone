@@ -17,7 +17,7 @@ export default function Auth() {
 
     await axios({
       method: "POST",
-      url: "https://whatsapp-clone-82zf.onrender.com/googleauth/auth",
+      url: "http://localhost:3001/googleauth/auth",
       data: info,
       headers: {
         "Content-type": "application/json",

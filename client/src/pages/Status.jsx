@@ -20,7 +20,7 @@ export default function Status() {
   const f = async () => {
     await axios({
       method: "POST",
-      url: "https://whatsapp-clone-82zf.onrender.com/status/get",
+      url: "http://localhost:3001/status/get",
 
       headers: {
         "Content-type": "application/json",
